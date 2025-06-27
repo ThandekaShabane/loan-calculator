@@ -3,43 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Loan Calculator</title>
+  <title>Zanemvula Loan Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    label { display: block; margin-top: 20px; }
-    input[type="range"] { width: 100%; }
-    .output { margin-top: 30px; font-size: 1.2em; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #F5F8FA;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .calculator-container {
+      max-width: 600px;
+      background: #fff;
+      padding: 30px;
+      margin: 50px auto;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    img.logo {
+      max-width: 120px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #1B2A41;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      margin-top: 5px;
+      accent-color: #2ECC71;
+    }
+
+    .output {
+      margin-top: 30px;
+      font-size: 1em;
+      background-color: #F0F4F8;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .output p {
+      margin: 10px 0;
+    }
+
+    .output strong {
+      color: #1B2A41;
+      font-weight: 600;
+    }
+
+    .highlight {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #2ECC71;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <h2>Short-Term Loan Calculator</h2>
+  <div class="calculator-container">
+    <img class="logo" src="https://i.imgur.com/hFdTgHh.png" alt="Zanemvula Finance Logo" />
+    <h2>Short-Term Loan Calculator</h2>
 
-  <label>Loan Amount: R<span id="loanAmountDisplay">1000</span>
-    <input type="range" id="loanAmount" min="1000" max="50000" step="500" value="1000">
-  </label>
+    <label>Loan Amount: R<span id="loanAmountDisplay">1000</span>
+      <input type="range" id="loanAmount" min="1000" max="50000" step="500" value="1000">
+    </label>
 
-  <label>Repayment Period (Months): <span id="monthsDisplay">1</span>
-    <input type="range" id="months" min="1" max="6" value="1">
-  </label>
+    <label>Repayment Period (Months): <span id="monthsDisplay">1</span>
+      <input type="range" id="months" min="1" max="6" value="1">
+    </label>
 
-  <div class="output">
-    <p>Initiation Fee: R<span id="initiationFee">0.00</span></p>
-    <p>Service Fee: R<span id="serviceFee">0.00</span></p>
-    <p>Total Fees: R<span id="totalFees">0.00</span></p>
-    <p>Total Interest: R<span id="totalInterest">0.00</span></p>
-    <p><strong>Total Repayable: R<span id="totalRepayable">0.00</span></strong></p>
-    <p><strong>Monthly Instalment: R<span id="instalment">0.00</span></strong></p>
+    <div class="output">
+      <p>Initiation Fee: R<span id="initiationFee">0.00</span></p>
+      <p>Service Fee: R<span id="serviceFee">0.00</span></p>
+      <p>Total Fees: R<span id="totalFees">0.00</span></p>
+      <p>Total Interest: R<span id="totalInterest">0.00</span></p>
+      <p><strong>Total Repayable:</strong> R<span id="totalRepayable">0.00</span></p>
+      <p class="highlight">Monthly Instalment: R<span id="instalment">0.00</span></p>
+    </div>
   </div>
-
-  <!-- Scripts to render calculator -->
 
   <script>
     const loanAmountInput = document.getElementById('loanAmount');
     const monthsInput = document.getElementById('months');
-
     const loanAmountDisplay = document.getElementById('loanAmountDisplay');
     const monthsDisplay = document.getElementById('monthsDisplay');
-
     const initiationFeeSpan = document.getElementById('initiationFee');
     const serviceFeeSpan = document.getElementById('serviceFee');
     const totalFeesSpan = document.getElementById('totalFees');
