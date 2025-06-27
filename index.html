@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zanemvula Loan Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    label { display: block; margin-top: 20px; }
+    input[type="range"] { width: 100%; }
+    .output { margin-top: 30px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h2>Short-Term Loan Calculator</h2>
+
+  <label>Loan Amount: R<span id="loanAmountDisplay">1000</span>
+    <input type="range" id="loanAmount" min="1000" max="50000" step="500" value="1000">
+  </label>
+
+  <label>Repayment Period (Months): <span id="monthsDisplay">1</span>
+    <input type="range" id="months" min="1" max="6" value="1">
+  </label>
+
+  <div class="output">
+    <p>Initiation Fee: R<span id="initiationFee">0.00</span></p>
+    <p>Service Fee: R<span id="serviceFee">0.00</span></p>
+    <p>Total Fees: R<span id="totalFees">0.00</span></p>
+    <p>Total Interest: R<span id="totalInterest">0.00</span></p>
+    <p><strong>Total Repayable: R<span id="totalRepayable">0.00</span></strong></p>
+    <p><strong>Monthly Instalment: R<span id="instalment">0.00</span></strong></p>
+  </div>
+
+  <script>
+    const loanAmountInput = document.getElementById('loanAmount');
+    const monthsInput = document.getElementById('months');
+
+    const loanAmountDisplay = document.getElementById('loanAmountDisplay');
+    const monthsDisplay = document.getElementById('monthsDisplay');
+
+    const initiationFeeSpan = document.getElementById('initiationFee');
+    const serviceFeeSpan = document.getElementById('serviceFee');
+    const totalFeesSpan = document.getElementById('totalFees');
+    const totalInterestSpan = document.getElementById('totalInterest');
+    const totalRepayableSpan = document.getElementById('totalRepayable');
+    const instalmentSpan = document.getElementById('instalment');
+
+    function calculate() {
+      const amount = parseFloat(loanAmountInput.value);
+      const months = parseInt(monthsInput.value);
+
+      loanAmountDisplay.textContent = amount;
+      monthsDisplay.textContent = months;
+
+      const initiationRates = {1: 0.14, 2: 0.14, 3: 0.15, 4: 0.15, 5: 0.16, 6: 0.16};
+      const initiationFee = amount * initiationRates[months];
+
+      const serviceFees = {1: 69, 2: 99, 3: 119, 4: 139, 5: 169, 6: 189};
+      const serviceFee = serviceFees[months];
+
+      const totalFees = initiationFee + serviceFee;
+
+      const interestRates = {1: 0.05, 2: 0.07, 3: 0.07, 4: 0.08, 5: 0.08, 6: 0.08};
+      const monthlyInterest = amount * interestRates[months];
+      const totalInterest = monthlyInterest * months;
+
+      const totalRepayable = amount + totalFees + totalInterest;
+
+      let instalment = totalRepayable / months;
+      instalment = Math.ceil(instalment / 10) * 10;
+
+      initiationFeeSpan.textContent = initiationFee.toFixed(2);
+      serviceFeeSpan.textContent = serviceFee.toFixed(2);
+      totalFeesSpan.textContent = totalFees.toFixed(2);
+      totalInterestSpan.textContent = totalInterest.toFixed(2);
+      totalRepayableSpan.textContent = totalRepayable.toFixed(2);
+      instalmentSpan.textContent = instalment.toFixed(2);
+    }
+
+    loanAmountInput.addEventListener('input', calculate);
+    monthsInput.addEventListener('input', calculate);
+    calculate();
+  </script>
+</body>
+</html>
